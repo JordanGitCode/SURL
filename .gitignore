@@ -1,4 +1,5 @@
 ## .NET and Angular project ignores
+appsettings.json
 
 # Build results
 [Dd]ebug/
