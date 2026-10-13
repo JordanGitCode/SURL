@@ -4,7 +4,7 @@ using Microsoft.Data.Sqlite;
 
 namespace MyApp.Namespace
 {
-    [Route("api/[surl]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SURLController : ControllerBase
     {
@@ -19,16 +19,24 @@ namespace MyApp.Namespace
         [HttpPost("POST-URL")]
         public IActionResult PostUrl([FromBody] string url)
         {
+
+            string shortUrl = GenerateShortUrl(url);
             
             _sqlite.Open();
 
             var insert = _sqlite.CreateCommand();
-            insert.CommandText = "INSERT INTO Url (Url) VALUES (@url)";
-            insert.Parameters.AddWithValue("@url", url);
+            insert.CommandText = "INSERT INTO URL (URL, SHORT_URL) VALUES (@URL, @SHORT_URL)";
+            insert.Parameters.AddWithValue("@URL", url);
+            insert.Parameters.AddWithValue("@SHORT_URL", shortUrl);
 
             insert.ExecuteNonQuery();
 
-            return CreatedAtAction(nameof(PostUrl), url);
+            return CreatedAtAction(nameof(PostUrl), shortUrl);
+        }
+
+        private string GenerateShortUrl(string url)
+        {
+            return "shortened_url";
         }
 
     }
