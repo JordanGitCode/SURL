@@ -6,10 +6,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+
+
+
 builder.Services.AddScoped<SqliteConnection>(provider =>
 {
+    var sqlite = new SqliteConnection();
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    return new SqliteConnection(connectionString);
+
+    if(!File.Exists(connectionString))
+        File.Create(connectionString);
+
+    sqlite.ConnectionString = "Data Source=" + connectionString;
+    
+    return sqlite;
 });
 
 var app = builder.Build();
