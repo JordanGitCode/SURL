@@ -17,8 +17,8 @@ namespace MyApp.Namespace
             _sqlite = sqlite;
         }
 
-        [HttpPost("POST-URL")]
-        public IActionResult PostUrl([FromBody] string url)
+        [HttpPost("POST-URL/{url}")]
+        public IActionResult PostUrl(string url)
         {
             if (!url.StartsWith("http://") && !url.StartsWith("https://"))
                 url = "https://" + url;
