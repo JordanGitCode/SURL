@@ -12,7 +12,7 @@ Select the first 8 characters that are not a '-'
 Boom theres the (not so) unique short code
 
 # Future enhancements
-Store the actual url in the db, not just the code
+Store the actual url in the db, not just the code \n
 Return the full shortened url, not just the code
 Find a way to make the short code truly unique
 Build a GUI to make it more friendly i guess
